@@ -1,0 +1,14 @@
+#Build output
+backend/target/
+
+#IDEs
+.idea/
+*.iml
+.vscode/
+
+# Secrets
+.env
+
+#OS files
+Thumbs.db
+.DS_Store
