@@ -1,4 +1,6 @@
 import { fetchCategories, fetchProducts } from './api.js';
+import './header.js';
+import { lookFor, formatPrice } from './format.js';
 
 const PAGE_SIZE = 8;
 
@@ -42,7 +44,7 @@ function bindEvents() {
         loadProducts();
     });
 
-    // Wait until the user pauses typing for 300 ms, instead of one request per key press.
+   
     el.search.addEventListener('input', debounce(() => {
         state.search = el.search.value.trim();
         state.page = 0;
@@ -56,7 +58,7 @@ async function loadCategories() {
         const categories = await fetchCategories();
         renderCategories([{ slug: '', name: 'All' }, ...categories]);
     } catch (error) {
-        console.error('Categories could not be loaded:', error);   // the shop still works without the chips
+        console.error('Categories could not be loaded:', error);  
     }
 }
 
@@ -69,7 +71,7 @@ function renderCategories(categories) {
         chip.addEventListener('click', () => {
             state.category = category.slug;
             state.page = 0;
-            renderCategories(categories);      // move the "active" highlight
+            renderCategories(categories);      
             loadProducts();
         });
         return chip;
@@ -89,7 +91,7 @@ async function loadProducts() {
             page: state.page,
             size: PAGE_SIZE,
         });
-        if (requestId !== latestRequest) return;   // a newer request started meanwhile: ignore this answer
+        if (requestId !== latestRequest) return;  
         renderProducts(page);
         renderPagination(page);
     } catch (error) {
@@ -110,14 +112,15 @@ function renderProducts(page) {
 
 function createCard(product) {
     const card = el.cardTemplate.content.firstElementChild.cloneNode(true);
-    const look = CATEGORY_LOOK[product.category.slug] ?? DEFAULT_LOOK;
+    const look = lookFor(product.category.slug);
 
+    card.href = `product.html?id=${product.id}`;
     card.style.setProperty('--hue', look.hue);
     card.querySelector('.card-emoji').textContent = look.emoji;
     card.querySelector('.card-category').textContent = product.category.name;
     card.querySelector('.card-title').textContent = product.name;
     card.querySelector('.card-desc').textContent = product.description ?? '';
-    card.querySelector('.card-price').textContent = priceFormat.format(Number(product.price));
+    card.querySelector('.card-price').textContent = formatPrice(product.price);
 
     if (product.inStock) {
         card.querySelector('.card-stock').textContent = `${product.stock} in stock`;
