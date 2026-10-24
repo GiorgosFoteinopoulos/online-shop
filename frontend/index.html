@@ -24,6 +24,15 @@
             </svg>
             <input id="search" type="search" placeholder="Search products..." autocomplete="off" aria-label="Search products">
         </div>
+                <a href="cart.html" class="cart-link" aria-label="Shopping cart">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
+                <path d="M3 6h18"/>
+                <path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+            <span id="cart-count" class="cart-badge" hidden>0</span>
+        </a>
     </div>
 </header>
 
@@ -56,10 +65,10 @@
 </footer>
 
 <template id="product-card">
-    <article class="card">
+    <a class="card" href="#">
         <div class="card-media">
             <span class="card-emoji"></span>
-            <span class="card-badge">Out of stock</span>
+            <span class="card-badge">Out of stock</span>                                                                                
         </div>
         <div class="card-body">
             <span class="card-category"></span>
@@ -70,6 +79,6 @@
                 <span class="card-stock"></span>
             </div>
         </div>
-    </article>
-</template>
+    </a>
+</template> 
 </body>

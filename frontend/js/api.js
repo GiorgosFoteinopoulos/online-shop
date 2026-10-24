@@ -29,3 +29,4 @@ async function getJson(path, params = {}) {
 
 export const fetchCategories = () => getJson('/categories');
 export const fetchProducts = (params) => getJson('/products', params);
+export const fetchProduct = (id) => getJson(`/products/${id}`);
