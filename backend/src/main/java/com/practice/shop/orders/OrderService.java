@@ -33,8 +33,9 @@ public class OrderService {
                 throw new BadRequestException("Product " + line.productId() + " appears more than once.");
             }
         }
-        Map<Long, Product> products = productRepository.findAllById(quantities.keySet()).stream()
+        Map<Long, Product> products = productRepository.findAllByIdForUpdate(quantities.keySet()).stream()
                 .collect(Collectors.toMap(Product::getId, Function.identity()));
+
 
         Order order = new Order(request.customerName().strip(),
                 request.customerEmail().strip().toLowerCase(Locale.ROOT));
@@ -56,4 +57,5 @@ public class OrderService {
                 .map(OrderResponse::from)
                 .orElseThrow(() -> new NotFoundException("Order", publicId));
     }
+
 }
