@@ -1,0 +1,8 @@
+{
+  "customerName": "Giorgos",
+  "customerEmail": "giorgos@example.com",
+  "items": [
+    { "productId": 3, "quantity": 1 },
+    { "productId": 3, "quantity": 2 }
+  ]
+}
