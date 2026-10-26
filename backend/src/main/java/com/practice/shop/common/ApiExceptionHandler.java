@@ -61,4 +61,11 @@ public class ApiExceptionHandler {
         problem.setTitle("Malformed request body");
         return problem;
     }
+
+    @ExceptionHandler(ConflictException.class)
+    public ProblemDetail handleConflict(ConflictException e) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, e.getMessage());
+        problem.setTitle("Conflict");
+        return problem;
+    }
 }
