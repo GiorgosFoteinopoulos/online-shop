@@ -59,9 +59,8 @@ function summary(items) {
         summaryLine('Total', formatCents(totalCents), 'total'),
     );
 
-    const checkout = el('button', 'btn-primary', 'Proceed to checkout');
-    checkout.type = 'button';
-    checkout.disabled = true;
+    const checkout = el('a', 'btn-primary', 'Proceed to checkout');
+    checkout.href = 'checkout.html';
 
     const clear = el('button', 'btn-link', 'Clear cart');
     clear.type = 'button';
@@ -69,7 +68,7 @@ function summary(items) {
         if (confirm('Remove all items from your cart?')) clearCart();
     });
 
-    box.append(checkout, el('p', 'hint', 'Checkout arrives in the next step.'), clear);
+    box.append(checkout, clear);
     return box;
 }
 
