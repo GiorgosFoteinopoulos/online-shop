@@ -62,4 +62,14 @@ public class Product {
     public Category getCategory() {
         return category;
     }
+
+    public void decreaseStock(int quantity) {
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Quantity must be positive");
+        }
+        if (quantity > stock) {
+            throw new InsufficientStockException(id, name, stock, quantity);
+        }
+        stock -= quantity;
+    }
 }
