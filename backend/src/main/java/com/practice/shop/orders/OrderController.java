@@ -3,6 +3,7 @@ package com.practice.shop.orders;
 
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -20,8 +21,10 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderResponse> place(@Valid @RequestBody PlaceOrderRequest request) {
-        OrderResponse order = orderService.placeOrder(request);
+    public ResponseEntity<OrderResponse> place(@Valid @RequestBody PlaceOrderRequest request, Authentication authentication) {
+
+        OrderResponse order = orderService.placeOrder(request, authentication.getName());
+
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(order.id())
