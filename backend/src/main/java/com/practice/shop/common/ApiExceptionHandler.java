@@ -68,4 +68,11 @@ public class ApiExceptionHandler {
         problem.setTitle("Conflict");
         return problem;
     }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ProblemDetail handeUnauthorized(UnauthorizedException e) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, e.getMessage());
+        problem.setTitle("Unauthorized");
+        return problem;
+    }
 }

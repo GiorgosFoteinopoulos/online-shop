@@ -6,7 +6,7 @@ import com.practice.shop.users.AppUser;
 
 public record UserResponse(
         String email,
-        String fullname,
+        String fullName,
         Role role,
         Instant createdAt
 ) {
