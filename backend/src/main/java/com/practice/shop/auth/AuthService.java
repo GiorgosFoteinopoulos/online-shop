@@ -54,6 +54,13 @@ public class AuthService {
         Jwt token = jwtService.createToken(user);
         return new LoginResponse(token.getTokenValue(), token.getExpiresAt(), UserResponse.from(user));
     }
+
+    @Transactional(readOnly = true)
+    public UserResponse me(String email) {
+        return users.findByEmail(email)
+                .map(UserResponse::from)
+                .orElseThrow(() -> new UnauthorizedException("Account not found"));
+    }
     private static String normalizeEmail(String email) {
         return email.trim().toLowerCase(Locale.ROOT);
     }

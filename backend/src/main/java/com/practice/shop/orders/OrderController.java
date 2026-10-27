@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -32,8 +33,13 @@ public class OrderController {
         return ResponseEntity.created(location).body(order);
     }
 
+    @GetMapping("/mine")
+    public List<OrderResponse> mine(Authentication authentication) {
+        return orderService.getMyOrders(authentication.getName());
+    }
+
     @GetMapping("/{id}")
-    public OrderResponse get(@PathVariable UUID id) {
-        return orderService.getOrder(id);
+    public OrderResponse get(@PathVariable UUID id, Authentication authentication) {
+        return orderService.getOrder(id, authentication.getName());
     }
 }

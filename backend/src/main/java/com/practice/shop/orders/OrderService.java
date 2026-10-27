@@ -56,11 +56,29 @@ public class OrderService {
         return OrderResponse.from(orderRepository.save(order));
     }
 
+
     @Transactional(readOnly = true)
-    public OrderResponse getOrder(UUID publicId) {
-        return orderRepository.findByPublicId(publicId)
+    public OrderResponse getOrder(UUID publicId, String userEmail) {
+
+        AppUser customer = findCustomer(userEmail);
+
+        return orderRepository.findByPublicIdAndUserId(publicId, customer.getId())
                 .map(OrderResponse::from)
                 .orElseThrow(() -> new NotFoundException("Order", publicId));
+    }
+
+    @Transactional(readOnly = true)
+    public List<OrderResponse> getMyOrders(String userEmail) {
+        AppUser customer = findCustomer(userEmail);
+
+        return orderRepository.findAllByUserIdOrderByCreatedAtDesc(customer.getId()).stream()
+                .map(OrderResponse::from)
+                .toList();
+    }
+
+    private AppUser findCustomer(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UnauthorizedException("Account not found"));
     }
 
 }
