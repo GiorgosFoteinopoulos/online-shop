@@ -1,3 +1,4 @@
+import { getToken, clearSession } from "./auth.js";
 
 const API_BASE = 'http://localhost:8080/api';
 
@@ -11,7 +12,7 @@ export class ApiError extends Error {
 }
 
 
-async function request(method, path, { params = {}, body } = {}) {
+async function request(method, path, { params = {}, body, auth = true } = {}) {
     const url = new URL(API_BASE + path);
     for (const [key, value] of Object.entries(params)) {
         if (value !== undefined && value !== null && value !== '') {
@@ -23,6 +24,11 @@ async function request(method, path, { params = {}, body } = {}) {
     if (body !== undefined) {
         options.headers['Content-Type'] = 'application/json';
         options.body = JSON.stringify(body);
+    }
+
+    const token = auth ? getToken() : null;
+    if (token) {
+        options.headers['Authorization'] = `Bearer ${token}`;
     }
 
     let response;
@@ -39,6 +45,9 @@ async function request(method, path, { params = {}, body } = {}) {
         } catch {
 
         }
+        if (response.status === 401 && token) {
+            clearSession();
+        }
         throw new ApiError(response.status, problem);
     }
     return response.status === 204 ? null : response.json();
@@ -49,3 +58,8 @@ export const fetchProducts = (params) => request('GET', '/products', { params })
 export const fetchProduct = (id) => request('GET', `/products/${id}`);
 export const placeOrder = (order) => request('POST', '/orders', { body: order });
 export const fetchOrder = (id) => request('GET', `/orders/${encodeURIComponent(id)}`);
+
+export const login = (credentials) => request('POST', '/auth/login', {body: credentials, auth: false});
+export const register = (account) => request('POST', '/auth/register', {body: account, auth: false });
+export const fetchMe = () => request('GET', '/auth/me');
+export const fetchMyOrders = () => request('GET', '/orders/mine');

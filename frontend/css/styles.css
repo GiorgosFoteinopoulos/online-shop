@@ -662,6 +662,20 @@ a.card:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
 
 main.narrow > #order-view > .btn-primary { margin-bottom: 56px; }
 
+.auth-card {
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+.auth-card .page-title {
+    text-align: center;
+}
+
+.hint a {
+    color: inherit;
+    font-weight: 600;
+}
+
 
 @media (max-width: 860px) {
     .product-detail,
