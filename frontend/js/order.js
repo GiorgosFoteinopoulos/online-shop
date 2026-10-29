@@ -1,6 +1,9 @@
 import './header.js';
 import { fetchOrder } from './api.js';
 import { formatPrice } from './format.js';
+import { isLoggedIn } from './auth.js';
+import { redirectToLogin } from './nav.js';
+
 
 const view = document.querySelector('#order-view');
 const messageBox = document.querySelector('#order-message');
@@ -16,10 +19,22 @@ async function load() {
         showMessage('Order not found.', 'This link does not point to an order.');
         return;
     }
+
+    if (!isLoggedIn()) {
+        redirectToLogin();                             
+        return;
+    }
     try {
-        render(await fetchOrder(id));
+        render(await fetchOrder(id));                  
     } catch (error) {
-        showMessage('Order not found.', error.message);
+        if (error instanceof ApiError && error.status === 401) {
+            redirectToLogin();                       
+        } else if (error instanceof ApiError && error.status === 404) {
+
+            showMessage('Order not found.', 'This order does not exist, or it belongs to another account.');
+        } else {
+            showMessage('Something went wrong.', error.message);
+        }
     }
 }
 
@@ -31,7 +46,7 @@ function render(order) {
     document.querySelector('#order-email').textContent = order.customerEmail;
     document.querySelector('#order-status').textContent = order.status;
     document.querySelector('#order-date').textContent = dateFormat.format(new Date(order.createdAt));
-    document.querySelector('#order-total').textContent = formatPrice(order.total);
+    document.querySelector('#order-total').textContent =  formatPrice(order.total);
 
     const rows = order.items.map(item => {
         const row = rowTemplate.content.firstElementChild.cloneNode(true);

@@ -20,6 +20,9 @@ public class Order {
     @Column(name = "public_id", nullable = false, unique = true, updatable = false)
     private UUID publicId;
 
+    @Column(name="user_id", updatable = false)
+    private Long userId;
+
     @Column(name = "customer_name", nullable = false,  length = 100)
     private String customerName;
 
@@ -44,8 +47,9 @@ public class Order {
 
     }
 
-    public Order(String customerName, String customerEmail) {
+    public Order(Long userId,String customerName, String customerEmail) {
         this.publicId = UUID.randomUUID();
+        this.userId = userId;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.status = OrderStatus.PLACED;
@@ -62,7 +66,7 @@ public class Order {
     public Long getId() {
         return id;
     }
-
+    public Long getUserId() {return userId;}
     public UUID getPublicId() {
         return publicId;
     }

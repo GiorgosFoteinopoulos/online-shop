@@ -662,6 +662,206 @@ a.card:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
 
 main.narrow > #order-view > .btn-primary { margin-bottom: 56px; }
 
+.auth-card {
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+.auth-card .page-title {
+    text-align: center;
+}
+
+.hint a {
+    color: inherit;
+    font-weight: 600;
+}
+
+.account-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 16px 0 auto;
+    white-space: nowrap;
+}
+
+.account-greeting {
+    font-weight: 500;
+}
+
+.account-link {
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: inherit;
+    background: none;
+    border: 1.5px solid currentColor;
+    border-radius: 999px;
+    padding: 6px 14px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.account-link:hover {
+    opacity: 0.7;
+}
+
+@media (max-width: 520px) {
+    .account-greeting {
+        display: none;
+    }
+}
+
+.ordering-as {
+    margin: 0 0 20px;
+    line-height: 1.5;
+}
+
+.ordering-email {
+    display: block;
+    opacity: 0.7;
+    font-size: 0.9rem;
+}
+
+@view-transition {
+    navigation: auto;
+}
+
+.site-header {
+    view-transition-name: site-header;
+}
+
+::view-transition-old(root) {
+    animation: 150ms ease-out both page-fade-out;
+}
+
+::view-transition-new(root) {
+    animation: 250ms ease-out both page-fade-in;
+}
+
+@keyframes page-fade-out {
+    to { opacity: 0; }
+    
+}
+
+@keyframes page-fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+}
+
+
+html {
+    scrollbar-gutter: stable;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body > main {
+    flex: 1 0 auto;
+    width: 100%;
+}
+
+.btn-primary,
+.account-link,
+.cart-link,
+.back-link,
+.brand {
+    transition: opacity 150ms ease, transform 150ms ease, backgroung-color 150ms ease;
+}
+
+.btn-primary:active:not(:disabled),
+.account-link:active {
+    transform: scale(0.97);
+}
+
+.account-nav {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+account-nav:hover,
+.account-nav[aria-current="page"] {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.orders-list {
+    display: grid;
+    gap: 12px;
+}
+
+.order-card {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 20px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 14px;
+    color: inherit;
+    text-decoration: none;
+    transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.order-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.order-card-main {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.order-card-ref {
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+
+.order-card-date,
+.order-card-items {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+.order-card-side {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.status-pill {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(79, 70, 229, 0.12);
+    color: #4338ca;
+}
+
+#order-total {
+    margin-left: 0.5em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    @view-transition {
+        navigation: none;
+    }
+
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
 
 @media (max-width: 860px) {
     .product-detail,

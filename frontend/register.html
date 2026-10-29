@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title> Create account - Kim Shop</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/styles.css">
+        <script type="module" src="js/register.js"></script>
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="container header-inner">
+                <a href="index.html" class="brand">
+                    <span class="brand-mark">KS</span>
+                    <span class="brand-text">Kim Shop</span>
+                </a>
+                <a href="cart.html" class="cart-link" aria-label="Shopping cart">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
+                <path d="M3 6h18"/>
+                <path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+            <span id="cart-count" class="cart-badge" hidden>0</span>
+                </a>
+            </div>
+        </header>
+        <main class="container">
+            <div class="auth-card">
+                <h1 class="page-title">Create account</h1>
+
+                <form id="register-form" class="form-card" method="post" novalidate>
+                    <div id="form-alert" class="form-alert" role="alert" hidden></div>
+
+                    <div class="field">
+                        <label for="fullName">Full name</label>
+                        <input id="fullName" name="fullName" type="text" maxlength="100" autocomplete="name">
+                        <p class="field-error" data-error-for="fullName" hidden></p>
+                    </div>
+
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="email" maxlength="254" autocomplete="email">
+                        <p class="field-error" data-error-for="email" hidden></p>
+                    </div>
+
+                    <div class="field">
+                        <label for="password">Password</label>
+                        <input if="password" name="password" type="password" maxlength="72" autocomplete="new-password">
+                        <p class="field-error" data-error-for="password" hidden></p>
+                    </div>
+
+                    <div class="field">
+                <label for="confirmPassword">Confirm password</label>
+                <input id="confirmPassword" name="confirmPassword" type="password" maxlength="72" autocomplete="new-password">
+                <p class="field-error" data-error-for="confirmPassword" hidden></p>
+            </div>
+
+            <button type="submit" class="btn-primary btn-block">Create account</button>
+            <p class="hint">Already have an account? <a href="login.html">Log in</a></p>
+                </form>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="container">Kim Shop · A practice project with Spring Boot and plain JavaScript</div>
+        </footer>
+    </body>
+</html>
