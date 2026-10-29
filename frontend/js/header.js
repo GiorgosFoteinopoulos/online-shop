@@ -58,3 +58,15 @@ function firstName(fullname) {
 renderAccount();
 onAuthChange(renderAccount);
 window.addEventListener('pageshow', renderAccount);
+
+if (HTMLScriptElement.supports?.('speculationrules')) {
+    const rules = document.createElement('script');
+    rules.type = 'speculationrules';
+    rules.textContent = JSON.stringify({
+        prefetch: [{
+            where: { href_matches: '/*' },
+            eagerness: 'moderate',
+        }],
+    });
+    document.head.append(rules);
+}

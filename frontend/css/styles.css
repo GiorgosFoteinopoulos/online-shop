@@ -722,6 +722,71 @@ main.narrow > #order-view > .btn-primary { margin-bottom: 56px; }
     font-size: 0.9rem;
 }
 
+@view-transition {
+    navigation: auto;
+}
+
+.site-header {
+    view-transition-name: site-header;
+}
+
+::view-transition-old(root) {
+    animation: 150ms ease-out both page-fade-out;
+}
+
+::view-transition-new(root) {
+    animation: 250ms ease-out both page-fade-in;
+}
+
+@keyframes page-fade-out {
+    to { opacity: 0; }
+    
+}
+
+@keyframes page-fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+}
+
+
+html {
+    scrollbar-gutter: stable;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body > main {
+    flex: 1 0 auto;
+    width: 100%;
+}
+
+.btn-primary,
+.account-link,
+.cart-link,
+.back-link,
+.brand {
+    transition: opacity 150ms ease, transform 150ms ease, backgroung-color 150ms ease;
+}
+
+.btn-primary:active:not(:disabled),
+.account-link:active {
+    transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    @view-transition {
+        navigation: none;
+    }
+
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
 
 @media (max-width: 860px) {
     .product-detail,
