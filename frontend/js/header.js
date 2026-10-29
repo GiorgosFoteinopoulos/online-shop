@@ -1,5 +1,6 @@
 import { getUser, clearSession, onAuthChange } from './auth.js';
 import { cartCount, onCartChange } from './cart.js';
+import { loginUrl } from './nav.js';
 
 const badge = document.querySelector('#cart-count');
 
@@ -31,6 +32,15 @@ function renderAccount() {
         greeting.className = 'account-greeting';
         greeting.textContent = `Hi, ${firstName(user.fullName)}`;
 
+        const ordersLink = document.createElement('a');
+        ordersLink.href = 'my-orders.html';
+        ordersLink.className = 'account-nav';
+        ordersLink.textContent = 'My orders';
+        if (currentPage === 'my-orders.html') {
+            ordersLink.setAttribute('aria-current', 'page');
+        }
+
+
         const logoutButton = document.createElement('button');
         logoutButton.type = 'button';
         logoutButton.className = 'account-link';
@@ -40,10 +50,11 @@ function renderAccount() {
             location.href = 'index.html';
         });
 
-        accountArea.append(greeting, logoutButton);
+        accountArea.append(greeting, ordersLink, logoutButton);
+
     } else if (!AUTH_PAGES.includes(currentPage)) {
         const loginLink = document.createElement('a');
-        loginLink.href = 'login.html';
+        loginLink.href = loginUrl();
         loginLink.className = 'account-link';
         loginLink.textContent = 'Log in';
 

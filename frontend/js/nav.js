@@ -5,8 +5,12 @@ function currentPage() {
     return page + location.search;
 }
 
+export function loginUrl() {
+    return `login.html?next=${encodeURIComponent(currentPage())}`;
+}
+
 export function redirectToLogin() {
-    location.replace(`login.html?next=${encodeURIComponent(currentPage())}`);
+    location.replace(loginUrl());
 }
 
 export function safeNext() {

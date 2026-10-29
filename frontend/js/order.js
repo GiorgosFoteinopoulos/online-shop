@@ -46,7 +46,7 @@ function render(order) {
     document.querySelector('#order-email').textContent = order.customerEmail;
     document.querySelector('#order-status').textContent = order.status;
     document.querySelector('#order-date').textContent = dateFormat.format(new Date(order.createdAt));
-    document.querySelector('#order-total').textContent = formatPrice(order.total);
+    document.querySelector('#order-total').textContent =  formatPrice(order.total);
 
     const rows = order.items.map(item => {
         const row = rowTemplate.content.firstElementChild.cloneNode(true);

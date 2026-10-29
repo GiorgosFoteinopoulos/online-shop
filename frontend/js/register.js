@@ -80,7 +80,3 @@ function clearErrors() {
 }
 
 
-function safeNext() {
-    const next = new URLSearchParams(location.search).get('next');
-    return next && /^[a-z0-9-]+\.html$/i.test(next) ? next : 'index.html';
-}
