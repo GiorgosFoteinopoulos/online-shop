@@ -1,6 +1,7 @@
 import './header.js';
 import { register, login, ApiError } from './api.js';
 import { saveSession, isLoggedIn  } from './auth.js';
+import { safeNext } from './nav.js';
 
 const form = document.querySelector('#register-form');
 const alertBox = document.querySelector('#form-alert');

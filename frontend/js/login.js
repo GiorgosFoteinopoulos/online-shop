@@ -1,6 +1,7 @@
 import './header.js';
 import { login, ApiError } from './api.js';
 import { saveSession, isLoggedIn } from './auth.js';
+import { safeNext } from './nav.js';
 
 const form = document.querySelector('#login-form');
 const alertBox = document.querySelector('#form-alert');
@@ -67,8 +68,4 @@ function clearErrors() {
     }
 }
 
-function safeNext() {  
-    const next = new URLSearchParams(location.search).get('next');
-    return next && /^[a-z0-9-]+\.html$/i.test(next) ? next : 'index.html';
-}
 

@@ -36,17 +36,10 @@
             <h2>Your details</h2>
             <div id="form-alert" class="form-alert" role="alert" hidden></div>
 
-            <div class="field">
-                <label for="customerName">Full name</label>
-                <input id="customerName" name="customerName" type="text" maxlength="100" autocomplete="name">
-                <p class="field-error" data-error-for="customerName" hidden></p>
-            </div>
-
-            <div class="field">
-                <label for="customerEmail">Email</label>
-                <input id="customerEmail" name="customerEmail" type="email" maxLength="254" autocomplete="email">
-                <p class="field-error" data-error-for="customerEmail" hidden></p>
-            </div>
+            <p class="ordering-as">
+                Ordering as <strong id="ordering-name"></strong>
+                <span id="ordering-email" class="ordering-email"></span>
+            </p>
 
             <button type="submit" class="btn-primary btn-block">Place order</button>
             <p class="hint">No payment needed: this is a practice shop.</p>

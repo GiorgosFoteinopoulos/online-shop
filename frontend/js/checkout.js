@@ -2,12 +2,17 @@ import './header.js';
 import { placeOrder, ApiError } from './api.js';
 import { getCart, clearCart, cartTotalCents } from './cart.js';
 import { toCents, formatCents } from './format.js';
+import { getUser, isLoggedIn, onAuthChange } from './auth.js';
+import { redirectToLogin } from './nav.js';
+
 
 const form = document.querySelector('#checkout-form');
 const alertBox = document.querySelector('#form-alert');
 const submitButton = form.querySelector('button[type="submit"]');
 const summaryItems = document.querySelector('#summary-items');
 const summaryTotal = document.querySelector('#summary-total');
+const orderingName = document.querySelector('#ordering-name');
+const orderingEmail = document.querySelector('#ordering-email');
 
 init();
 
@@ -16,8 +21,27 @@ function init() {
         window.location.replace('cart.html');     // nothing to check out
         return;
     }
+
+    if (!isLoggedIn()) {
+        redirectToLogin();
+        return;
+    }
+
+    showCustomer();
     renderSummary();
     form.addEventListener('submit', submitOrder);
+
+    onAuthChange(() => {
+        if (!isLoggedIn()) {
+            redirectToLogin();
+        }
+    });
+}
+
+function showCustomer() {
+    const user = getUser();
+    orderingName.textContent = user.fullName;
+    orderingEmail.textContent = user.email;
 }
 
 function renderSummary() {
@@ -38,11 +62,7 @@ async function submitOrder(event) {
     event.preventDefault();
     clearErrors();
 
-    const data = new FormData(form);
     const order = {
-        customerName: String(data.get('customerName') ?? '').trim(),
-        customerEmail: String(data.get('customerEmail') ?? '').trim(),
-        // Only WHICH product and HOW MANY: the server decides the prices.
         items: getCart().map(item => ({ productId: item.productId, quantity: item.quantity })),
     };
 
@@ -59,19 +79,9 @@ async function submitOrder(event) {
 
 function showError(error) {
     if (error instanceof ApiError && error.status === 400 && error.problem.errors) {
-        let shownUnderField = false;
-        for (const [field, message] of Object.entries(error.problem.errors)) {
-            const slot = form.querySelector(`[data-error-for="${field}"]`);
-            if (slot) {
-                slot.textContent = message;
-                slot.hidden = false;
-                form.elements[field]?.classList.add('invalid');
-                shownUnderField = true;
-            }
-        }
-        showAlert(shownUnderField ? 'Please check the highlighted fields.' : error.message);
+        redirectToLogin();
     } else if (error instanceof ApiError && error.status === 409) {
-        showAlert(error.message, true);           // e.g. "Only 4 left of Adjustable Dumbbells, requested 50."
+        showAlert(error.message, true);          
     } else {
         showAlert(error.message);
     }
@@ -92,11 +102,10 @@ function showAlert(text, withCartLink = false) {
 
 function clearErrors() {
     alertBox.hidden = true;
-    form.querySelectorAll('.field-error').forEach(slot => { slot.hidden = true; slot.textContent = ''; });
-    form.querySelectorAll('.invalid').forEach(input => input.classList.remove('invalid'));
+    alertBox.replaceChildren();
 }
 
 function setSubmitting(submitting) {
-    submitButton.disabled = submitting;           // no double orders from a double click
+    submitButton.disabled = submitting;       
     submitButton.textContent = submitting ? 'Placing order…' : 'Place order';
 }
