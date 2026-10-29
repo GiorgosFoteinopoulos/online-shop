@@ -33,4 +33,12 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
    @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select p from Product p where p.id in :ids order by p.id")
     List<Product> findAllByIdForUpdate(@Param("ids") Collection<Long> ids);
+
+   @EntityGraph(attributePaths = "category")
+    @Query("select p from Product p")
+    Page<Product> findAllForAdmin(Pageable pageable);
+
+   @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("select p from Product p join fetch p.category where p.id = :id")
+    Optional<Product> findByIdForUpdate(@Param("id") Long id);
 }
