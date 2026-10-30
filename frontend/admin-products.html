@@ -34,7 +34,14 @@
                     <p class="admin-eyebrow">Admin</p>
                     <h1 class="page-title">Products</h1>
                 </div>
+                <div class="admin-actions">
                 <a href="admin-product-form.html" class="btn-primary">+Add product</a>
+                <div class="pager">
+                    <button id="prev-page" type="button" class="account-link" disabled>← Previous</button>
+                    <span id="page-info" class="hint"></span>
+                    <button id="next-page" type="button" class="account-link" disabled>Next →</button>
+                </div>
+            </div>
             </div>
 
             <nav class="admin-tabs" aria-label="Admin sections">
@@ -60,12 +67,6 @@
                     <tr><td colspan="7" class="hint">Loading products...</td></tr>
                 </tbody>
                 </table>
-            </div>
-
-            <div class="pager">
-                <button id="prev-page" type="button" class="account-link" disabled>← Previous</button>
-                <span id="page-info" class="hint"></span>
-                <button id="next-page" type="button" class="account-link" disabled>Next →</button>
             </div>
         </main>
         <footer class="site-footer">

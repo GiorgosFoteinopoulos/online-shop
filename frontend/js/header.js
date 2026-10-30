@@ -34,7 +34,14 @@ function renderAccount() {
         items.push(greeting);
 
         if (user.role === 'ADMIN') {
-            items.push(navLink('admin-products.html', 'Admin', currentPage.startsWith('admin-')));
+           const manageLink = document.createElement('a');
+           manageLink.href = 'admin-products.html';
+           manageLink.className = 'account-cta';
+           manageLink.textContent = 'Admin Dashboard';
+           if (currentPage.startsWith('admin-')) {
+            manageLink.setAttribute('aria-current', 'page');
+           }
+           items.push(manageLink);
         }
 
         items.push(navLink('my-orders.html', 'My orders', currentPage === 'my-orders.html'));

@@ -684,6 +684,34 @@ main.narrow > #order-view > .btn-primary { margin-bottom: 56px; }
     white-space: nowrap;
 }
 
+.account-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 16px;
+    border-radius: 999px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.25);
+    transition: background-color 150ms ease, transform 150ms ease;
+}
+
+.account-cta:hover {
+    background: #4338ca;
+}
+
+.account-cta:active {
+    transform: scale(0.97);
+}
+
+.account-cta[aria-current="page"] {
+    background: var(--primary-soft);
+    color: var(--primary);
+    box-shadow: none;
+}
+
 .account-greeting {
     font-weight: 500;
 }
@@ -768,7 +796,7 @@ body > main {
 .cart-link,
 .back-link,
 .brand {
-    transition: opacity 150ms ease, transform 150ms ease, backgroung-color 150ms ease;
+    transition: opacity 150ms ease, transform 150ms ease, background-color 150ms ease;
 }
 
 .btn-primary:active:not(:disabled),
@@ -783,7 +811,7 @@ body > main {
     font-size: 0.95rem;
 }
 
-account-nav:hover,
+.account-nav:hover,
 .account-nav[aria-current="page"] {
     text-decoration: underline;
     text-underline-offset: 4px;
@@ -794,12 +822,14 @@ account-nav:hover,
     gap: 12px;
 }
 
-.order-card {
+.orders-list .order-card {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
+    margin-bottom: 0;
     padding: 18px 20px;
     background: #fff;
     border: 1px solid rgba(0, 0, 0, 0.08);
@@ -809,7 +839,8 @@ account-nav:hover,
     transition: transform 150ms ease, box-shadow 150ms ease;
 }
 
-.order-card:hover {
+
+.orders-list .order-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
@@ -862,13 +893,18 @@ account-nav:hover,
     }
 }
 
+
 .admin-header {
+    position: sticky;
+    top: 69px;                          /* site header: 68px + 1px border */
+    z-index: 5;
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
     gap: 16px;
-    margin-bottom: 8px;
+    padding: 28px 0 16px;               /* space under the site header */
+    background: var(--bg);              /* covers the rows scrolling underneath */
 }
 
 .admin-eyebrow {
@@ -877,18 +913,64 @@ account-nav:hover,
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #4338ca;
+    color: var(--primary);
 }
 
 .admin-header .page-title {
     margin: 4px 0 0;
 }
 
+/* right side: "+ Add product" on top, the pager right below it */
+.admin-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.admin-actions .pager {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+.admin-actions #page-info {
+    order: -1;                          /* the text first, then the two buttons */
+    margin-right: 4px;
+    white-space: nowrap;
+}
+
+/* the same look as the shop's pagination (.page-btn) */
+.admin-actions .pager button {
+    height: 36px;
+    padding: 0 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+}
+
+.admin-actions .pager button:hover:not(:disabled) {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.admin-actions .pager button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
 .admin-tabs {
     display: flex;
     gap: 24px;
-    margin: 8px 0 20px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    margin: 4px 0 20px;
+    border-bottom: 1px solid var(--border);
 }
 
 .admin-tabs a {
@@ -903,14 +985,17 @@ account-nav:hover,
 
 .admin-tabs a[aria-current="page"] {
     opacity: 1;
-    border-bottom-color: #4f46e5;
+    border-bottom-color: var(--primary);
 }
 
+/* the table scrolls sideways on narrow screens instead of squeezing */
 .table-wrap {
     overflow-x: auto;
-    background: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 14px;
+    margin-bottom: 48px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
 }
 
 .admin-table {
@@ -924,25 +1009,31 @@ account-nav:hover,
     padding: 12px 16px;
     text-align: left;
     white-space: nowrap;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    border-bottom: 1px solid var(--border);
 }
 
 .admin-table th {
+    color: var(--muted);
     font-size: 0.75rem;
+    font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    opacity: 0.6;
 }
 
 .admin-table tbody tr:last-child td {
     border-bottom: none;
 }
 
-.admin-table .num {
-    text-align: center;
+.admin-table tbody tr:hover {
+    background: var(--bg);
 }
 
-.admin-table tr.is-archived th:not(.col-status):not(.col.actions) {
+.admin-table .num {
+    text-align: right;
+}
+
+/* archived rows are faded, except their status and buttons (td + .col-actions: the typo fix) */
+.admin-table tr.is-archived td:not(.col-status):not(.col-actions) {
     opacity: 0.45;
 }
 
@@ -951,19 +1042,32 @@ account-nav:hover,
 }
 
 .edit-link {
-    margin-right: 12px;
-    color: inherit;
+    margin-right: 14px;
+    color: var(--primary);
     font-weight: 600;
+    text-decoration: none;
+}
+
+.edit-link:hover {
+    text-decoration: underline;
 }
 
 .toggle-button {
+    padding: 5px 14px;                  /* the missing lines */
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--text);
     font: inherit;
     font-size: 0.85rem;
     font-weight: 600;
-    color: inherit;
-    background: none;
-    border: 1.5px solid currentColor;
-    border-radius: 999px;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+}
+
+.toggle-button:hover:not(:disabled) {
+    border-color: var(--primary);
+    color: var(--primary);
 }
 
 .toggle-button:disabled {
@@ -979,28 +1083,16 @@ account-nav:hover,
 }
 
 .pill-active {
-    background: rgba(16, 185, 129, 0.14);
+    background: #ecfdf5;
     color: #047857;
 }
 
 .pill-archived {
-    background: rgba(0, 0, 0, 0.07);
-    color: #555;
+    background: #f3f4f6;
+    color: var(--muted);
 }
 
-.pager {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-top: 16px;
-}
-
-.pager button:disabled {
-    opacity: 0.35;
-    cursor: default;
-}
-
+/* readable by screen readers, invisible on screen */
 .visually-hidden {
     position: absolute;
     width: 1px;
@@ -1009,7 +1101,6 @@ account-nav:hover,
     clip: rect(0 0 0 0);
     white-space: nowrap;
 }
-
 
 @media (max-width: 860px) {
     .product-detail,
