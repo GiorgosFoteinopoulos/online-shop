@@ -896,15 +896,15 @@ body > main {
 
 .admin-header {
     position: sticky;
-    top: 69px;                          /* site header: 68px + 1px border */
+    top: 69px;                     
     z-index: 5;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    padding: 28px 0 16px;               /* space under the site header */
-    background: var(--bg);              /* covers the rows scrolling underneath */
+    padding: 28px 0 16px;            
+    background: var(--bg);             
 }
 
 .admin-eyebrow {
@@ -920,7 +920,7 @@ body > main {
     margin: 4px 0 0;
 }
 
-/* right side: "+ Add product" on top, the pager right below it */
+
 .admin-actions {
     display: flex;
     flex-direction: column;
@@ -936,12 +936,12 @@ body > main {
 }
 
 .admin-actions #page-info {
-    order: -1;                          /* the text first, then the two buttons */
+    order: -1;                        
     margin-right: 4px;
     white-space: nowrap;
 }
 
-/* the same look as the shop's pagination (.page-btn) */
+
 .admin-actions .pager button {
     height: 36px;
     padding: 0 14px;
@@ -988,7 +988,6 @@ body > main {
     border-bottom-color: var(--primary);
 }
 
-/* the table scrolls sideways on narrow screens instead of squeezing */
 .table-wrap {
     overflow-x: auto;
     margin-bottom: 48px;
@@ -1032,7 +1031,7 @@ body > main {
     text-align: right;
 }
 
-/* archived rows are faded, except their status and buttons (td + .col-actions: the typo fix) */
+
 .admin-table tr.is-archived td:not(.col-status):not(.col-actions) {
     opacity: 0.45;
 }
@@ -1053,7 +1052,7 @@ body > main {
 }
 
 .toggle-button {
-    padding: 5px 14px;                  /* the missing lines */
+    padding: 5px 14px;                  
     border: 1px solid var(--border);
     border-radius: 999px;
     background: var(--surface);
@@ -1092,7 +1091,7 @@ body > main {
     color: var(--muted);
 }
 
-/* readable by screen readers, invisible on screen */
+
 .visually-hidden {
     position: absolute;
     width: 1px;
@@ -1100,6 +1099,122 @@ body > main {
     overflow: hidden;
     clip: rect(0 0 0 0);
     white-space: nowrap;
+}
+
+
+
+[hidden] {
+    display: none !important;
+}
+
+
+.admin-form-title {
+    margin: 4px 0 24px;
+}
+
+.form-loading {
+    text-align: left;
+}
+
+
+.field textarea,
+.field select {
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+}
+
+.field textarea {
+    min-height: 110px;
+    resize: vertical;               
+}
+
+.field textarea:focus,
+.field select:focus {
+    background: #fff;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px var(--primary-soft);
+}
+
+.field textarea.invalid,
+.field select.invalid {
+    border-color: #dc2626;
+    background: #fef2f2;
+}
+
+.optional {
+    color: var(--muted);
+    font-weight: 400;
+}
+
+
+.field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+@media (max-width: 520px) {
+    .field-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.archived-note {
+    margin: 0;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: #f3f4f6;
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+    padding-top: 8px;
+}
+
+.cancel-link {
+    color: var(--muted);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.cancel-link:hover {
+    color: var(--text);
+}
+
+.card-media,
+.detail-media {
+    position: relative;
+    overflow: hidden;
+}
+
+.product-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+    object-fit: contain;
+    background: #fff;
+}
+
+.has-photo .card-emoji,
+.has-photo .detail-emoji {
+    visibility: hidden;
+}
+
+.card-badge {
+    z-index: 1;
 }
 
 @media (max-width: 860px) {

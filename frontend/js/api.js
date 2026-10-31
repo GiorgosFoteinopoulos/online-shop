@@ -67,7 +67,7 @@ export const fetchMyOrders = () => request('GET', '/orders/mine');
 export const fetchAdminProducts = (params) => request('GET', '/admin/products', {params});
 export const fetchAdminProduct = (id) => request('GET', `/admin/products/${id}`);
 export const createProduct = (product) => request('POST', '/admin/products', { body: product });
-export const updateProduct = (id, product) => request('PUT', '/admin/products/${id}', { body: product });
+export const updateProduct = (id, product) => request('PUT', `/admin/products/${id}`, { body: product });
 export const archiveProduct = (id) => request('DELETE', `/admin/products/${id}`);
 export const restoreProduct = (id) => request('POST', `/admin/products/${id}/restore`);
 
